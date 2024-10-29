@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurant Waiting List</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Restaurant Waiting List</h1>
+
+    <form id="reservation-form">
+      <input type="text" id="customer-name" placeholder="Enter your name" required>
+      <button type="submit">Add to Waiting List</button>
+    </form>
+
+    <h2>Current Waiting List</h2>
+    <ul id="reservation-list">
+      {% for reservation in waiting_list %}
+      <li>{{ reservation['name'] }} (ID: {{ reservation['id'] }})</li>
+      {% endfor %}
+    </ul>
+
+    <button onclick="seatNextGuest()">Seat Next Guest</button>
+  </div>
+
+  <script>
+    document.getElementById('reservation-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('customer-name').value;
+      await fetch('/reserve', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name })
+      });
+      location.reload();
+    });
+
+    async function seatNextGuest() {
+      await fetch('/seatNextGuest', { method: 'POST' });
+      location.reload();
+    }
+  </script>
+</body>
+
+</html>

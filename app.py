@@ -20,6 +20,7 @@ def add_task():
     task_data = request.json
     if 'task' in task_data:
         # TODO: Create Task from task_data
+        # Name of Task lives at task_data['task']
         # TODO: Add Task to Tasks Data Structure
         
         return jsonify({'message': 'Task added successfully'}), 201

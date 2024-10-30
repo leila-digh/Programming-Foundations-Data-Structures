@@ -1,5 +1,4 @@
 from flask import Flask, jsonify, request, render_template
-from collections import deque
 
 app = Flask(__name__)
 
@@ -8,7 +7,8 @@ next_id = 1
 
 @app.route('/')
 def index():
-    return render_template('index.html', waiting_list=list(waiting_list_queue))
+    # TODO: Return all the guests on the waiting_list
+    return render_template('index.html', waiting_list=waiting_list)
 
 @app.route('/addToWaitingList', methods=['POST'])
 def add_to_waiting_list():
@@ -23,11 +23,6 @@ def add_to_waiting_list():
         return jsonify({"message": "Guest added", "reservation": guest}), 201
     else:
         return jsonify({"message": "Name is required"}), 400
-
-@app.route('/waitinglist', methods=['GET'])
-def get_waiting_list():
-    # TODO: Return all the guests on the waiting_list
-    return jsonify(waiting_list)
 
 @app.route('/seatNextGuest', methods=['POST'])
 def seat_guest():

@@ -1,0 +1,26 @@
+/* static/style.css */
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+h1 {
+  color: #333;
+}
+
+form {
+  margin: 10px 0;
+}
+
+input,
+button {
+  padding: 8px;
+  margin: 5px;
+}
+
+button {
+  cursor: pointer;
+}

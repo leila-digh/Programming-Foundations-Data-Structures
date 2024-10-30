@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Inventory Tracker</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+
+<body>
+  <h1>Inventory Tracker</h1>
+
+  <h2>Add Item</h2>
+  <form id="add-form">
+    <input type="text" id="add-name" placeholder="Item Name" required>
+    <input type="number" id="add-quantity" placeholder="Quantity" required>
+    <button type="submit">Add</button>
+  </form>
+
+  <h2>Current Inventory</h2>
+  <ul id="inventory-list">
+    {% for item, quantity in inventory.items() %}
+    <li>
+      {{ item }}: <span id="quantity-{{ item }}">{{ quantity }}</span>
+      <button onclick="promptUpdate('{{ item }}')">Update Quantity</button>
+      <button onclick="deleteItem('{{ item }}')">Delete</button>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <script>
+
+    document.getElementById('add-form').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const name = document.getElementById('add-name').value;
+      const quantity = parseInt(document.getElementById('add-quantity').value);
+      await fetch('/add_item', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, quantity })
+      });
+      location.reload();  // Reload to show updated inventory
+    });
+
+    async function promptUpdate(itemName) {
+      const newQuantity = prompt(`Enter new quantity for ${itemName}:`);
+      if (newQuantity && !isNaN(newQuantity)) {
+        await fetch('/update_quantity', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: itemName, quantity: parseInt(newQuantity) })
+        });
+        location.reload();
+      }
+    }
+
+    async function deleteItem(itemName) {
+      await fetch(`/delete_item/${itemName}`, { method: 'DELETE' });
+      location.reload();
+    }
+  </script>
+</body>
+
+</html>

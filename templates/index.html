@@ -31,7 +31,7 @@
     document.getElementById('reservation-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       const name = document.getElementById('customer-name').value;
-      await fetch('/reserve', {
+      await fetch('/addToWaitingList', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name })

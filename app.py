@@ -11,7 +11,7 @@ print(f"There are {num_of_students} students in the class.")
 item_at_index_3 = student_books_list[3]
 
 #Index Error: list index out of range
-# print(student_books_list[20])
+#print(student_books_list[20])
 
 item_three_from_back = student_books_list[-3]
 print(item_three_from_back)

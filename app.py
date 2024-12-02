@@ -17,10 +17,7 @@ item_three_from_back = student_books_list[-3]
 print(item_three_from_back)
 
 total_books = 0
-for individual_book in student_books_list:
-  total_books += individual_book
+for individual_books in student_books_list:
+  total_books += individual_books
 print(total_books)
-
-average_books = total_books / num_of_students
-print(f"The average number of books read per student is {average_books:.2f}")
 

@@ -21,3 +21,6 @@ for individual_books in student_books_list:
   total_books += individual_books
 print(total_books)
 
+average_books = total_books / num_of_students
+print(f"The average number of books read per student is {average_books:.2f}")
+

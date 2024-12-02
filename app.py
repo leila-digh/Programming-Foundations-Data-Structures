@@ -1,9 +1,9 @@
-# Key: State
-# Value: Capital
-
-states_to_capitals = {
-  "Texas" : "Austin",
-  "New York" : "Albany"
+user_preferences = {
+    "language": "English",
+    "fontSize": "14px",
+    "timezone": "GMT",
+    "currency": "USD",
+    "enableLocation": False,
+    "volumeLevel": 80,
+    "dateFormat": "MM/DD/YYYY"
 }
-
-print(states_to_capitals["New York"])

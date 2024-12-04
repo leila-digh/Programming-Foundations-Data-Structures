@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 
-inventory = None # TODO Add Data Structure
+inventory = {}
 
 @app.route('/')
 def index():
@@ -16,6 +16,10 @@ def add_item():
 
     if item_name and isinstance(quantity, int) and quantity > 0:
         # TODO Add Item to Inventory
+        if item_name in inventory:
+            inventory[item_name] += quantity
+        else:
+            inventory[item_name] = quantity
         # If the item is already in the inventory, update its quantity to include the added items
         return jsonify({"message": f"{quantity} {item_name}(s) added to inventory"}), 201
     else:
@@ -29,6 +33,7 @@ def update_quantity():
 
     if item_name in inventory and isinstance(quantity, int):
         # TODO Update quantity of item in inventory
+        inventory[item_name] = quantity 
         return jsonify({"message": f"{item_name} quantity updated to {quantity}"}), 200
     else:
         return jsonify({"message": "Item not found or invalid quantity"}), 400
@@ -37,6 +42,7 @@ def update_quantity():
 def delete_item(item_name):
     if item_name in inventory:
         # TODO Delete item from inventory
+        del inventory[item_name]
         return jsonify({"message": f"{item_name} removed from inventory"}), 200
     else:
         return jsonify({"message": "Item not found"}), 404
